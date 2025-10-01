@@ -59,6 +59,31 @@ console.log(2 + 3 * 4); // 14 (Multiplication has higher precedence than additio
 // console.log(5 - 3 + 2); // 4 (evaluated left to right)
 // console.log(5 - (3 + 2)); // 0 (parentheses change the order of evaluation)
 
+// | Precedence | Operator(s)                                                           | Description                         | Associativity |
+// | ---------- | --------------------------------------------------------------------- | ----------------------------------- | ------------- |
+// | 21         | `()`                                                                  | Grouping                            | Left → Right  |
+// | 20         | `new` (with arguments)                                                | Create object                       | Right → Left  |
+// | 19         | `.`                                                                   | Member access, `[]`                 | Left → Right  |
+// | 18         | `()`                                                                  | Function call                       | Left → Right  |
+// | 17         | `++` `--`                                                             | Postfix increment/decrement         | Left → Right  |
+// | 16         | `++` `--` `+` `-` `~` `!` `typeof` `void` `delete`                    | Unary operators                     | Right → Left  |
+// | 15         | `**`                                                                  | Exponentiation                      | Right → Left  |
+// | 14         | `*` `/` `%`                                                           | Multiplication, division, remainder | Left → Right  |
+// | 13         | `+` `-`                                                               | Addition, subtraction               | Left → Right  |
+// | 12         | `<<` `>>` `>>>`                                                       | Bitwise shift                       | Left → Right  |
+// | 11         | `<` `<=` `>` `>=` `in` `instanceof`                                   | Relational                          | Left → Right  |
+// | 10         | `==` `!=` `===` `!==`                                                 | Equality                            | Left → Right  |
+// | 9          | `&`                                                                   | Bitwise AND                         | Left → Right  |
+// | 8          | `^`                                                                   | Bitwise XOR                         | Left → Right  |
+// | 7          | `\|`                                                                  | Bitwise OR                          | Left → Right  |
+// | 6          | `&&`                                                                  | Logical AND                         | Left → Right  |
+// | 5          | `\|\|`                                                                | Logical OR                          | Left → Right  |
+// | 4          | `??`                                                                  | Nullish coalescing                  | Left → Right  |
+// | 3          | `?:`                                                                  | Conditional (ternary)               | Right → Left  |
+// | 2          | `=` `+=` `-=` `*=` `/=` `%=` `**=` `<<=` `>>=` `>>>=` `&=` `^=` `\|=` | Assignment                          | Right → Left  |
+// | 1          | `,`                                                                   | Comma operator                      | Left → Right  |
+
+
 
 // Accept user input
 
@@ -125,6 +150,19 @@ console.log(Math.random()); // Random number between 0 and 1
 console.log(Math.floor(4.7)); // Rounds down to the nearest integer
 
 
+
+// The 6 classic falsy values
+// false → obviously
+// 0 → number zero
+// -0 → negative zero (yep, JS has that)
+// 0n → BigInt zero
+// "" → empty string
+// null → no value
+// undefined → not assigned
+// NaN → Not a Number
+
+// Any value not in this list is truthy (like "0", "false", [], {}, etc.)
+
 // if-else if - else statement
 let age = 18;
 if (age < 18) {
@@ -180,6 +218,33 @@ let isLoggedIn = true;
 let message = isLoggedIn ? "Welcome back!" : "Please log in.";
 
 //String Methods
+
+
+
+// String length
+// String charAt()
+// String charCodeAt()
+// String codePointAt()
+// String concat()
+// String at()
+// String [ ]
+// String slice()
+// String substring()
+// String substr()
+// String toUpperCase()
+// String toLowerCase()
+// String isWellFormed()
+// String toWellFormed()
+// String trim()
+// String trimStart()
+// String trimEnd()
+// String padStart()
+// String padEnd()
+// String repeat()
+// String replace()
+// String replaceAll()
+// String split()
+
 let str = "Hello, World!";
 console.log(str.length); // Length of the string
 console.log(str.toUpperCase()); // Convert to uppercase
@@ -280,10 +345,27 @@ console.log(fruits); // Output the updated array after shift
 console.log(fruits.unshift('kiwi')); // Add 'kiwi' to the beginning of the array
 console.log(fruits); // Output the updated array after unshift
 console.log(fruits.splice(1, 1)); // Remove the second element from the array
-console.log(fruits.sort()); // Output the updated array after splice
+console.log(fruits.sort()); // Output the updated array after splice * in lexical order
 console.log(fruits.reverse()); // Reverse the order of the array elements
 console.log(fruits.slice(1, 3)); // Extract a portion of the array from index 1 to 3
 
+let arr5= [5, 10, 2, 30];
+arr5.sort();
+console.log(arr5); // [10, 2, 30, 5]  😱
+
+// ⚠️ Why weird?
+// Because .sort() converts elements to strings by default and sorts lexicographically (dictionary order).
+// "10" comes before "2" as strings.
+
+// 🔹 Correct Numeric Sort
+// Use a compare function:
+
+let arr3 = [5, 10, 2, 30];
+
+arr3.sort((a, b) => a - b);   // Ascending
+console.log(arr3); // [2, 5, 10, 30]
+
+arr3.sort((a, b) => b - a);   // Descending
 
 //spread operator
 let arr1 = [1, 2, 3];
@@ -395,11 +477,20 @@ fruitsArray.forEach(function(element, index, array) {
 });
 
 
-//foreach loop
-let numbers = [1, 2, 3, 4, 5];  
-numbers.forEach(function(num) {
-    console.log('Number:', num); // Output each number in the array
-});
+for (let fruit of fruitsArray) {
+    console.log('Fruit:', fruit); // Output each fruit in the array
+}
+
+for (let index in fruitsArray) {
+    console.log(`Element at index ${index} is: ${fruitsArray[index]}`); // Output each element with its index
+}
+for (let index=0; index<fruitsArray.length; index++){
+    console.log(`Element at index ${index} is: ${fruitsArray[index]}`); // Output each element with its index
+}
+
+
+
+//----------------------------------------------------------------------------------------------------------
 // Arrow Functions
 let square = (x) => x * x; // Arrow function to calculate square of a number
 console.log('Square of 5:', square(5)); // Output: Square of 5: 25
@@ -874,7 +965,7 @@ element.addEventListener('click', event =>{
 });
 
 // Removing an event listener: You can remove an event listener from an element to stop responding to a specific event.
-function handleClick(event) {
+function handleClick(event){
     console.log('Element clicked!'); // Log a message when the element is clicked
 }
 element.addEventListener('click', handleClick); // Add the event listener
